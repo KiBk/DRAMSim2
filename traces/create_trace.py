@@ -33,8 +33,11 @@ with open("../../dram.sys/DRAMSys/library/resources/traces/python-script.stl", "
     with open("mase_script.trc", "w") as file_destination:
         for old_access in file_source:
             text = old_access[:-1].split('\t')
-            text[2] = text[2][:2] + '0'*(10-len(text[2])) + text[2][2:]
-            file_destination.write("%s %s %s\n" % (text[2],text[1].upper(),text[0][:-1]))
+            if (len(text) == 3):
+                text[2] = text[2][:2] + '0'*(10-len(text[2])) + text[2][2:]
+                if (text[1] == 'read' or text[1] == 'write'):
+                    file_destination.write("%s %s %s\n" % (text[2],text[1].upper(),text[0][:-1]))
+                    # print (text)
 
 
 
